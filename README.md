@@ -14,7 +14,9 @@ Renno is a warm, editorial home-services marketplace built with Next.js 14, Type
 
 1. Install dependencies with `npm install`.
 2. Copy `.env.local.example` to `.env.local` and fill in Supabase, Stripe, and Resend keys.
-3. Run `npm run dev`.
+3. Run the SQL in [supabase/migrations/001_initial.sql](/Users/oscar/Desktop/renno/supabase/migrations/001_initial.sql) and [supabase/migrations/002_auth_and_client_rls.sql](/Users/oscar/Desktop/renno/supabase/migrations/002_auth_and_client_rls.sql) in your Supabase project.
+4. In Supabase Auth, enable Google under Authentication -> Providers and add your site URL plus `/auth/callback` to the redirect allow list.
+5. Run `npm run dev`.
 
 ## What is scaffolded vs. production-ready
 
@@ -23,6 +25,7 @@ The repo currently includes polished UI, route structure, design system, typed m
 The following are intentionally stubbed and should be wired to live services next:
 
 - Supabase auth/session persistence
+- Supabase auth trigger and RLS migration execution inside your hosted Supabase project
 - Storage uploads and realtime subscriptions
 - Stripe Connect onboarding and milestone escrow logic
 - React Hook Form and Zod-backed submission flows

@@ -4,23 +4,37 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BriefcaseBusiness, ClipboardList, LayoutDashboard, MessageSquare, Search, Settings, Wallet } from "lucide-react";
 
+import { signOutAction } from "@/app/app/actions";
 import { cn } from "@/lib/utils";
+import type { Profile } from "@/types";
 
-const items = [
+const clientItems = [
   { href: "/app/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/app/projects/new", label: "New project", icon: ClipboardList },
   { href: "/app/find-pros", label: "Find pros", icon: Search },
-  { href: "/app/pro/jobs", label: "Jobs", icon: BriefcaseBusiness },
   { href: "/app/messages", label: "Messages", icon: MessageSquare },
-  { href: "/app/settings", label: "Settings", icon: Settings },
-  { href: "/app/pro/earnings", label: "Earnings", icon: Wallet }
+  { href: "/app/settings", label: "Settings", icon: Settings }
 ];
 
-export function Sidebar() {
+const proItems = [
+  { href: "/app/pro/dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/app/pro/leads", label: "Leads", icon: Search },
+  { href: "/app/pro/jobs", label: "Jobs", icon: BriefcaseBusiness },
+  { href: "/app/pro/quotes", label: "Quotes", icon: ClipboardList },
+  { href: "/app/pro/earnings", label: "Earnings", icon: Wallet },
+  { href: "/app/settings", label: "Settings", icon: Settings }
+];
+
+export function Sidebar({
+  profile
+}: {
+  profile: (Profile & { locationCity?: string | null; propertyType?: string | null }) | null;
+}) {
   const pathname = usePathname();
+  const items = profile?.role === "pro" ? proItems : clientItems;
 
   return (
-    <aside className="hidden w-[260px] shrink-0 border-r border-cream-300 bg-white/70 px-5 py-6 lg:block">
+    <aside className="hidden min-h-screen w-[260px] shrink-0 border-r border-cream-300 bg-white/70 px-5 py-6 lg:flex lg:flex-col">
       <Link href="/" className="font-serif text-3xl font-bold tracking-tight text-brown-800">
         renno<span className="text-terracotta-500">.</span>
       </Link>
@@ -46,8 +60,14 @@ export function Sidebar() {
       <div className="mt-auto pt-20">
         <div className="rounded-[24px] bg-brown-800 p-4 text-cream-100">
           <p className="text-xs uppercase tracking-[0.18em] text-cream-200">Account</p>
-          <p className="mt-3 font-medium">Olivia Harper</p>
-          <p className="text-sm text-cream-200">Homeowner</p>
+          <p className="mt-3 font-medium">{profile?.fullName ?? "Renno user"}</p>
+          <p className="text-sm text-cream-200">{profile?.role === "pro" ? "Professional" : "Homeowner"}</p>
+          <p className="mt-1 text-sm text-cream-300">{profile?.email ?? ""}</p>
+          <form action={signOutAction} className="mt-4">
+            <button className="text-sm font-medium text-terracotta-200 transition-colors hover:text-white" type="submit">
+              Sign out
+            </button>
+          </form>
         </div>
       </div>
     </aside>

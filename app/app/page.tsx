@@ -1,5 +1,8 @@
 import { redirect } from "next/navigation";
 
-export default function AppIndexPage() {
-  redirect("/app/dashboard");
+import { getAuthenticatedHome, requireAccount } from "@/lib/auth";
+
+export default async function AppIndexPage() {
+  const { profile } = await requireAccount();
+  redirect(getAuthenticatedHome(profile));
 }

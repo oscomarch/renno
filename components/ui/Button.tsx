@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import { cn } from "@/lib/utils";
 
@@ -17,9 +17,9 @@ type ButtonProps = {
   className?: string;
   variant?: keyof typeof variants;
   href?: string;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export function Button({ children, className, variant = "primary", href }: ButtonProps) {
+export function Button({ children, className, variant = "primary", href, type = "button", ...props }: ButtonProps) {
   const classes = cn(baseStyles, variants[variant], className);
   if (href) {
     return (
@@ -29,5 +29,9 @@ export function Button({ children, className, variant = "primary", href }: Butto
     );
   }
 
-  return <button className={classes}>{children}</button>;
+  return (
+    <button className={classes} type={type} {...props}>
+      {children}
+    </button>
+  );
 }

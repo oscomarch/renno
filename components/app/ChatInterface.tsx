@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/Card";
-import { Input } from "@/components/ui/Input";
 import type { Message } from "@/types";
 
 export function ChatInterface({ messages }: { messages: Message[] }) {
@@ -18,9 +17,6 @@ export function ChatInterface({ messages }: { messages: Message[] }) {
             <p className="mt-2 text-brown-500">{message.content}</p>
           </div>
         ))}
-      </div>
-      <div className="border-t border-cream-300 px-6 py-5">
-        <Input placeholder="Message your pro..." />
       </div>
     </Card>
   );

@@ -1,20 +1,26 @@
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
+import { getSupabasePublishableKey, getSupabaseUrl } from "@/lib/env";
+
 export function createClient() {
   const cookieStore = cookies();
+  type CookieToSet = { name: string; value: string; options: Record<string, unknown> };
 
-  return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ?? "https://example.supabase.co",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "public-anon-key",
-    {
-      cookies: {
-        get(name: string) {
-          return cookieStore.get(name)?.value;
-        },
-        set() {},
-        remove() {}
+  return createServerClient(getSupabaseUrl(), getSupabasePublishableKey(), {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet: CookieToSet[]) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) =>
+            cookieStore.set(name, value, options as Parameters<typeof cookieStore.set>[2])
+          );
+        } catch {
+          // Server Components can read cookies but may not write them.
+        }
       }
     }
-  );
+  });
 }
