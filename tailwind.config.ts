@@ -63,6 +63,19 @@ const config: Config = {
       boxShadow: {
         warm: "0 20px 60px rgba(44, 24, 16, 0.08)"
       },
+      keyframes: {
+        aurora: {
+          from: {
+            backgroundPosition: "50% 50%, 50% 50%"
+          },
+          to: {
+            backgroundPosition: "350% 50%, 350% 50%"
+          }
+        }
+      },
+      animation: {
+        aurora: "aurora 22s linear infinite"
+      },
       borderRadius: {
         "4xl": "2rem"
       }
