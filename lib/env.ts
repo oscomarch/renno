@@ -1,23 +1,26 @@
-function getRequiredEnv(name: string, fallback?: string) {
-  const value = process.env[name] ?? fallback;
+export function getSupabaseUrl() {
+  const value = process.env.NEXT_PUBLIC_SUPABASE_URL;
   if (!value) {
-    throw new Error(`Missing environment variable: ${name}`);
+    throw new Error("Missing environment variable: NEXT_PUBLIC_SUPABASE_URL");
   }
   return value;
 }
 
-export function getSupabaseUrl() {
-  return getRequiredEnv("NEXT_PUBLIC_SUPABASE_URL");
-}
-
 export function getSupabasePublishableKey() {
-  return (
+  const value =
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ??
     process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
-    getRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
-  );
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!value) {
+    throw new Error(
+      "Missing environment variable: NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY | NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY | NEXT_PUBLIC_SUPABASE_ANON_KEY"
+    );
+  }
+
+  return value;
 }
 
 export function getAppUrl() {
-  return (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
+  return (process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000").replace(/\/$/, "");
 }
