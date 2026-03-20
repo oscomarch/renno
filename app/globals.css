@@ -1,0 +1,42 @@
+@import "@fontsource/fraunces/latin.css";
+@import "@fontsource/dm-sans/latin.css";
+@import "@fontsource/jetbrains-mono/latin.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-cream-100 text-brown-800 font-sans antialiased;
+  background-image:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.7), transparent 32%),
+    linear-gradient(to bottom, #fbf8f3, #fdfcfa);
+}
+
+a {
+  @apply transition-colors;
+}
+
+::selection {
+  @apply bg-terracotta-100 text-brown-800;
+}
+
+.container-shell {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-label {
+  @apply inline-flex items-center rounded-full border border-cream-300 bg-white/90 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.24em] text-brown-400;
+}
+
+.editorial-card {
+  @apply rounded-[28px] border border-cream-300 bg-white shadow-sm shadow-brown-900/5;
+}
