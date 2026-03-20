@@ -11,9 +11,10 @@ export function getSupabaseUrl() {
 }
 
 export function getSupabasePublishableKey() {
-  return getRequiredEnv(
-    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  return (
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY ??
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+    getRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY")
   );
 }
 
