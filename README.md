@@ -14,7 +14,7 @@ Renno is a warm, editorial home-services marketplace built with Next.js 14, Type
 
 1. Install dependencies with `npm install`.
 2. Copy `.env.local.example` to `.env.local` and fill in Supabase, Stripe, and Resend keys.
-3. Run the SQL in [supabase/migrations/001_initial.sql](/Users/oscar/Desktop/renno/supabase/migrations/001_initial.sql) and [supabase/migrations/002_auth_and_client_rls.sql](/Users/oscar/Desktop/renno/supabase/migrations/002_auth_and_client_rls.sql) in your Supabase project.
+3. Run the SQL in [supabase/migrations/001_initial.sql](/Users/oscar/Desktop/renno/supabase/migrations/001_initial.sql), [supabase/migrations/002_auth_and_client_rls.sql](/Users/oscar/Desktop/renno/supabase/migrations/002_auth_and_client_rls.sql), and [supabase/migrations/003_pro_marketplace_rls.sql](/Users/oscar/Desktop/renno/supabase/migrations/003_pro_marketplace_rls.sql) in your Supabase project.
 4. In Supabase Auth, enable Google under Authentication -> Providers and add your site URL plus `/auth/callback` to the redirect allow list.
 5. Run `npm run dev`.
 

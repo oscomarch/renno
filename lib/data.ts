@@ -3,9 +3,6 @@ import type { Message, Milestone, ProProfile, Project, Quote } from "@/types";
 export const demoPros: ProProfile[] = [
   {
     id: "pro-1",
-    email: "amelia@ateliermason.com",
-    fullName: "Amelia Stone",
-    role: "pro",
     businessName: "Atelier Mason",
     trades: ["Renovation", "Kitchen", "Bathroom"],
     bio: "High-touch renovation studio focused on kitchens, bathrooms, and heritage interiors.",
@@ -22,9 +19,6 @@ export const demoPros: ProProfile[] = [
   },
   {
     id: "pro-2",
-    email: "leo@voltworks.co",
-    fullName: "Leo Park",
-    role: "pro",
     businessName: "Volt Works",
     trades: ["Electrical", "HVAC"],
     bio: "Licensed electrical contractor with fast-response crews for rewires, panels, and HVAC upgrades.",
@@ -40,9 +34,6 @@ export const demoPros: ProProfile[] = [
   },
   {
     id: "pro-3",
-    email: "nora@brushandbeam.com",
-    fullName: "Nora Bell",
-    role: "pro",
     businessName: "Brush & Beam",
     trades: ["Painting", "Flooring"],
     bio: "Interior finishing specialists for paint, trim, flooring, and polished handover details.",
@@ -58,9 +49,6 @@ export const demoPros: ProProfile[] = [
   },
   {
     id: "pro-4",
-    email: "rafael@greenframe.build",
-    fullName: "Rafael Silva",
-    role: "pro",
     businessName: "Greenframe Build",
     trades: ["Extensions", "Carpentry", "Roofing"],
     bio: "Design-build shop for garden studios, loft conversions, and structural carpentry.",

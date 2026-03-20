@@ -9,7 +9,8 @@ export type Profile = {
   role: Role;
 };
 
-export type ProProfile = Profile & {
+export type ProProfile = {
+  id: string;
   businessName: string;
   trades: string[];
   bio: string;
@@ -21,6 +22,7 @@ export type ProProfile = Profile & {
   verified: boolean;
   portfolioImages: string[];
   featured?: boolean;
+  subscriptionTier?: "basic" | "premium";
 };
 
 export type ProjectStatus =
@@ -53,6 +55,7 @@ export type Quote = {
   id: string;
   projectId: string;
   proId: string;
+  proName?: string;
   status: "pending" | "accepted" | "rejected" | "withdrawn" | "expired";
   totalAmount: number;
   estimatedDurationDays: number;

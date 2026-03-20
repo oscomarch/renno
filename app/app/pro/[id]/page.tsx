@@ -2,12 +2,22 @@ import { notFound } from "next/navigation";
 import { MapPin, ShieldCheck, Star } from "lucide-react";
 
 import { Card } from "@/components/ui/Card";
-import { demoPros } from "@/lib/data";
+import { mapProProfileRow } from "@/lib/auth";
+import { createClient } from "@/lib/supabase/server";
 import { formatCurrency } from "@/lib/utils";
 
-export default function ProProfilePage({ params }: { params: { id: string } }) {
-  const pro = demoPros.find((entry) => entry.id === params.id);
-  if (!pro) notFound();
+export default async function ProProfilePage({ params }: { params: { id: string } }) {
+  const supabase = createClient();
+  const { data: proRow } = await supabase
+    .from("pro_profiles")
+    .select(
+      "id, business_name, bio, trades, years_experience, location_city, hourly_rate, rating_avg, rating_count, portfolio_images, license_verified, insurance_verified, background_check_passed, is_featured, subscription_tier"
+    )
+    .eq("id", params.id)
+    .maybeSingle();
+
+  if (!proRow) notFound();
+  const pro = mapProProfileRow(proRow);
 
   return (
     <div className="space-y-8">
@@ -18,7 +28,7 @@ export default function ProProfilePage({ params }: { params: { id: string } }) {
         <div className="mt-8 flex flex-wrap gap-5 text-sm text-brown-500">
           <span className="inline-flex items-center gap-2">
             <Star className="h-4 w-4 text-terracotta-500" />
-            {pro.ratingAvg} average rating
+            {pro.ratingAvg.toFixed(1)} average rating
           </span>
           <span className="inline-flex items-center gap-2">
             <MapPin className="h-4 w-4 text-brown-400" />
@@ -26,7 +36,7 @@ export default function ProProfilePage({ params }: { params: { id: string } }) {
           </span>
           <span className="inline-flex items-center gap-2">
             <ShieldCheck className="h-4 w-4 text-sage-600" />
-            Verified licensing and insurance
+            {pro.verified ? "Verified licensing and insurance" : "Verification in progress"}
           </span>
         </div>
       </div>

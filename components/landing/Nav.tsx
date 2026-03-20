@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/ui/Button";
@@ -23,13 +24,13 @@ export function Nav() {
           scrolled && "border-cream-300 bg-cream-100/80 shadow-sm backdrop-blur"
         )}
       >
-        <a href="#" className="font-serif text-3xl font-bold tracking-tight text-brown-800">
+        <Link href="/" className="font-serif text-3xl font-bold tracking-tight text-brown-800">
           renno<span className="text-terracotta-500">.</span>
-        </a>
+        </Link>
         <div className="flex items-center gap-2 sm:gap-3">
-          <a className="px-3 py-2 text-xs font-medium uppercase tracking-[0.18em] text-brown-500" href="/app/login">
+          <Link className="px-3 py-2 text-xs font-medium uppercase tracking-[0.18em] text-brown-500" href="/app/login">
             Log in
-          </a>
+          </Link>
           <Button className="gap-3 px-4 py-2.5 text-xs uppercase tracking-[0.14em]" href="/app/signup">
             Get started
             <span className="rounded-full bg-white/20 px-2 py-0.5 text-[10px]">S</span>

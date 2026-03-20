@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { formatDistanceToNowStrict } from "date-fns";
 
 import { createClient } from "@/lib/supabase/server";
-import type { Message, Milestone, Profile, Project, Quote } from "@/types";
+import type { Message, Milestone, ProProfile, Profile, Project, Quote } from "@/types";
 
 type ProfileRow = {
   id: string;
@@ -52,6 +52,25 @@ type QuoteRow = {
   estimated_duration_days: number | null;
   message: string | null;
   breakdown: Quote["breakdown"] | null;
+  pro_name?: string | null;
+};
+
+type ProProfileRow = {
+  id: string;
+  business_name: string;
+  bio: string | null;
+  trades: string[] | null;
+  years_experience: number | null;
+  location_city: string | null;
+  hourly_rate: number | string | null;
+  rating_avg: number | string | null;
+  rating_count: number | null;
+  portfolio_images: string[] | null;
+  license_verified: boolean | null;
+  insurance_verified: boolean | null;
+  background_check_passed: boolean | null;
+  is_featured: boolean | null;
+  subscription_tier: "basic" | "premium" | null;
 };
 
 type MessageRow = {
@@ -109,11 +128,42 @@ export async function requireClientAccount() {
   return { user, profile };
 }
 
+export async function requireProAccount() {
+  const { user, profile } = await requireAccount();
+
+  if (!profile) {
+    redirect("/app/onboarding/pro");
+  }
+
+  if (profile.role !== "pro") {
+    redirect("/app/dashboard");
+  }
+
+  if (!profile.onboarding_completed) {
+    redirect("/app/onboarding/pro");
+  }
+
+  const supabase = createClient();
+  const { data: proProfile } = await supabase
+    .from("pro_profiles")
+    .select(
+      "id, business_name, bio, trades, years_experience, location_city, hourly_rate, rating_avg, rating_count, portfolio_images, license_verified, insurance_verified, background_check_passed, is_featured, subscription_tier"
+    )
+    .eq("id", user.id)
+    .maybeSingle<ProProfileRow>();
+
+  if (!proProfile) {
+    redirect("/app/onboarding/pro");
+  }
+
+  return { user, profile, proProfile };
+}
+
 export function getAuthenticatedHome(
   profile: Pick<ProfileRow, "role" | "onboarding_completed"> | null
 ) {
   if (!profile) return "/app/onboarding/client";
-  if (profile.role === "pro") return "/app/pro/dashboard";
+  if (profile.role === "pro") return profile.onboarding_completed ? "/app/pro/dashboard" : "/app/onboarding/pro";
   if (!profile.onboarding_completed) return "/app/onboarding/client";
   return "/app/dashboard";
 }
@@ -170,11 +220,33 @@ export function mapQuoteRow(quote: QuoteRow): Quote {
     id: quote.id,
     projectId: quote.project_id,
     proId: quote.pro_id,
+    proName: quote.pro_name ?? undefined,
     status: quote.status,
     totalAmount: Number(quote.total_amount),
     estimatedDurationDays: quote.estimated_duration_days ?? 0,
     message: quote.message ?? "",
     breakdown: Array.isArray(quote.breakdown) ? quote.breakdown : []
+  };
+}
+
+export function mapProProfileRow(pro: ProProfileRow): ProProfile {
+  return {
+    id: pro.id,
+    businessName: pro.business_name,
+    trades: pro.trades ?? [],
+    bio: pro.bio ?? "Independent professional on Renno.",
+    ratingAvg: Number(pro.rating_avg ?? 0),
+    ratingCount: pro.rating_count ?? 0,
+    hourlyRate: Number(pro.hourly_rate ?? 0),
+    locationCity: pro.location_city ?? "Unknown",
+    yearsExperience: pro.years_experience ?? 0,
+    verified: Boolean(pro.license_verified || pro.insurance_verified || pro.background_check_passed),
+    portfolioImages:
+      pro.portfolio_images && pro.portfolio_images.length
+        ? pro.portfolio_images
+        : ["https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80"],
+    featured: Boolean(pro.is_featured),
+    subscriptionTier: pro.subscription_tier ?? "basic"
   };
 }
 

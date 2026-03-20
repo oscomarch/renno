@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { FormEvent, useState, useTransition } from "react";
 
+import { GoogleIcon } from "@/components/auth/GoogleIcon";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { createClient } from "@/lib/supabase/client";
@@ -99,9 +100,9 @@ export function SignupForm() {
       </div>
 
       <input name="role" type="hidden" value={role} />
-      <Input name="full_name" placeholder="Full name" required />
-      <Input name="email" placeholder="Email" required type="email" />
-      <Input minLength={8} name="password" placeholder="Password" required type="password" />
+      <Input autoComplete="name" name="full_name" placeholder="Full name" required />
+      <Input autoComplete="email" name="email" placeholder="Email" required type="email" />
+      <Input autoComplete="new-password" minLength={8} name="password" placeholder="Password" required type="password" />
 
       {error ? <p className="text-sm text-red-600">{error}</p> : null}
       {message ? <p className="text-sm text-sage-700">{message}</p> : null}
@@ -109,9 +110,14 @@ export function SignupForm() {
       <Button className="w-full" disabled={pending} type="submit">
         Create account
       </Button>
-      <Button className="w-full" disabled={pending} onClick={handleGoogleSignIn} type="button" variant="secondary">
+      <Button className="w-full gap-3" disabled={pending} onClick={handleGoogleSignIn} type="button" variant="secondary">
+        <GoogleIcon />
         Continue with Google
       </Button>
+      <p className="text-xs leading-6 text-brown-400">
+        By creating an account, you agree to Renno&apos;s <a href="/terms" className="text-brown-700 underline">Terms</a> and{" "}
+        <a href="/privacy" className="text-brown-700 underline">Privacy Policy</a>.
+      </p>
     </form>
   );
 }

@@ -1,13 +1,19 @@
 import { NextResponse } from "next/server";
 
-import { demoPros } from "@/lib/data";
+import { createClient } from "@/lib/supabase/server";
 
 export async function POST() {
+  const supabase = createClient();
+  const { data: pros } = await supabase
+    .from("pro_profiles")
+    .select("id, business_name, trades")
+    .limit(3);
+
   return NextResponse.json({
-    matches: demoPros.slice(0, 3).map((pro) => ({
+    matches: (pros ?? []).map((pro) => ({
       id: pro.id,
-      businessName: pro.businessName,
-      trades: pro.trades
+      businessName: pro.business_name,
+      trades: pro.trades ?? []
     }))
   });
 }
