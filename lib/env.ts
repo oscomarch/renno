@@ -7,11 +7,14 @@ function getRequiredEnv(name: string, fallback?: string) {
 }
 
 export function getSupabaseUrl() {
-  return getRequiredEnv("NEXT_PUBLIC_SUPABASE_URL", "https://example.supabase.co");
+  return getRequiredEnv("NEXT_PUBLIC_SUPABASE_URL");
 }
 
 export function getSupabasePublishableKey() {
-  return getRequiredEnv("NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY", process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "public-anon-key");
+  return getRequiredEnv(
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY",
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  );
 }
 
 export function getAppUrl() {
