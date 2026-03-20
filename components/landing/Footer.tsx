@@ -16,35 +16,61 @@ export function Footer() {
         <div>
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-brown-500">Product</p>
           <div className="mt-4 space-y-3 text-brown-400">
-            <Link href="/how-it-works">How it works</Link>
-            <Link href="/pricing">Pricing</Link>
-            <Link href="/for-pros">For pros</Link>
+            <Link className="block hover:text-brown-700" href="/how-it-works">
+              How it works
+            </Link>
+            <Link className="block hover:text-brown-700" href="/pricing">
+              Pricing
+            </Link>
+            <Link className="block hover:text-brown-700" href="/for-pros">
+              For pros
+            </Link>
           </div>
         </div>
         <div>
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-brown-500">Company</p>
           <div className="mt-4 space-y-3 text-brown-400">
-            <Link href="/about">About</Link>
-            <Link href="/blog">Blog</Link>
-            <Link href="/careers">Careers</Link>
+            <Link className="block hover:text-brown-700" href="/about">
+              About
+            </Link>
+            <Link className="block hover:text-brown-700" href="/blog">
+              Blog
+            </Link>
+            <Link className="block hover:text-brown-700" href="/careers">
+              Careers
+            </Link>
           </div>
         </div>
         <div>
           <p className="text-sm font-medium uppercase tracking-[0.18em] text-brown-500">Legal</p>
           <div className="mt-4 space-y-3 text-brown-400">
-            <Link href="/terms">Terms</Link>
-            <Link href="/privacy">Privacy</Link>
-            <Link href="/contact">Contact</Link>
-            <a href="https://twitter.com" target="_blank">Twitter</a>
+            <Link className="block hover:text-brown-700" href="/terms">
+              Terms
+            </Link>
+            <Link className="block hover:text-brown-700" href="/privacy">
+              Privacy
+            </Link>
+            <Link className="block hover:text-brown-700" href="/contact">
+              Contact
+            </Link>
+            <a className="block hover:text-brown-700" href="https://twitter.com" target="_blank" rel="noreferrer">
+              Twitter
+            </a>
           </div>
         </div>
       </div>
         <div className="flex flex-col gap-4 pt-6 text-sm text-brown-400 sm:flex-row sm:items-center sm:justify-between">
           <p>Kill the guesswork.</p>
           <div className="flex gap-5">
-            <Link href="/app/signup">Get started</Link>
-            <Link href="/app/login">Log in</Link>
-            <Link href="/contact">Contact</Link>
+            <Link className="hover:text-brown-700" href="/app/signup">
+              Get started
+            </Link>
+            <Link className="hover:text-brown-700" href="/app/login">
+              Log in
+            </Link>
+            <Link className="hover:text-brown-700" href="/contact">
+              Contact
+            </Link>
           </div>
         </div>
       </div>
