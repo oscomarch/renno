@@ -8,11 +8,10 @@ import { Nav } from "@/components/landing/Nav";
 import { ProblemStats } from "@/components/landing/ProblemStats";
 import { SocialProof } from "@/components/landing/SocialProof";
 import { Terminal } from "@/components/landing/Terminal";
-import { AuroraBackground } from "@/components/ui/AuroraBackground";
 
 export default function HomePage() {
   return (
-    <AuroraBackground>
+    <main>
       <Nav />
       <Hero />
       <SocialProof />
@@ -23,6 +22,6 @@ export default function HomePage() {
       <ForPros />
       <FinalCTA />
       <Footer />
-    </AuroraBackground>
+    </main>
   );
 }
