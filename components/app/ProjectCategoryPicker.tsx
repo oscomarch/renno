@@ -72,8 +72,8 @@ export function ProjectCategoryPicker({
           </div>
         </div>
         <p className="max-w-sm text-sm text-brown-500">
-          Pick the trade that best fits the main scope. We'll use it to keep the rest of the brief relevant and easier
-          to review.
+          Pick the trade that best fits the main scope. We&apos;ll use it to keep the rest of the brief relevant and
+          easier to review.
         </p>
       </div>
 
