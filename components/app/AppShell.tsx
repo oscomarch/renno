@@ -23,10 +23,10 @@ export function AppShell({
   }
 
   return (
-    <div className="min-h-screen lg:flex">
+    <div className="min-h-screen bg-cream-100 lg:flex">
       <Sidebar profile={profile} />
       <div className="flex-1">
-        <main className="container-shell py-6 sm:py-8">{children}</main>
+        <main className="container-shell py-5 sm:py-6">{children}</main>
       </div>
     </div>
   );
