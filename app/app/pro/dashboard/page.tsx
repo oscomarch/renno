@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 export default async function ProDashboardPage() {
   const { user, proProfile } = await requireProAccount();
   const supabase = createClient();
+  const displayTrades = (proProfile.trades ?? []).slice(0, 2).join(", ") || "Not set yet";
 
   const { data: quoteRows } = await supabase.from("quotes").select("id, status, total_amount").eq("pro_id", user.id);
   const { data: leadRows } = await supabase
@@ -40,7 +41,7 @@ export default async function ProDashboardPage() {
             </div>
             <div className="flex items-center justify-between gap-4 rounded-2xl border border-cream-300 bg-cream-50/60 p-4">
               <span>Trades</span>
-              <span className="font-medium text-brown-700">{proProfile.trades.slice(0, 2).join(", ") || "Not set yet"}</span>
+              <span className="font-medium text-brown-700">{displayTrades}</span>
             </div>
           </div>
         </Card>
